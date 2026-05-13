@@ -91,3 +91,204 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABNAIS | JARVIS HUD</title>
+    <style>
+        :root {
+            --glow-color: #00e5ff;
+            --bg-color: #050a10;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Particles Background Simulation */
+        #bg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* The HUD Ring Animation */
+        .hud-ring {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border: 2px solid var(--glow-color);
+            border-radius: 50%;
+            border-top: 5px solid transparent;
+            animation: spin 3s linear infinite;
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 40px;
+            background: rgba(0, 20, 40, 0.4);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glow-color);
+            box-shadow: 0 0 50px rgba(0, 229, 255, 0.2);
+            border-radius: 20px;
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+        }
+
+        h1 {
+            color: var(--glow-color);
+            font-size: 2.2rem;
+            text-shadow: 0 0 20px var(--glow-color);
+            margin-bottom: 10px;
+        }
+
+        .auth-label {
+            font-size: 0.7rem;
+            color: var(--glow-color);
+            letter-spacing: 4px;
+            margin-bottom: 25px;
+        }
+
+        input {
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid var(--glow-color);
+            padding: 15px;
+            color: white;
+            text-align: center;
+            font-size: 1.2rem;
+            width: 250px;
+            outline: none;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            box-shadow: 0 0 20px var(--glow-color);
+            background: rgba(0, 229, 255, 0.2);
+        }
+
+        button {
+            background: transparent;
+            border: 1px solid var(--glow-color);
+            color: var(--glow-color);
+            padding: 10px 40px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover {
+            background: var(--glow-color);
+            color: black;
+            box-shadow: 0 0 30px var(--glow-color);
+        }
+
+        .terminal-log {
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin-top: 20px;
+            height: 20px;
+            color: #fff;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="hud-ring"></div>
+
+<div class="container">
+    <h1>JARVIS v2.0</h1>
+    <div class="auth-label">DIMENSIONAL GATEWAY ACTIVE</div>
+    
+    <input type="password" id="passcode" placeholder="ACCESS CODE: 20064">
+    <br>
+    <button onclick="checkAccess()">ENGAGE SYSTEM</button>
+
+    <div id="log" class="terminal-log">SYSTEM STATUS: WAITING...</div>
+</div>
+
+<script>
+    // Particle Background Effect
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+    for (let i = 0; i < 100; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2,
+            speed: Math.random() * 0.5
+        });
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#00e5ff';
+        particles.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+            p.y -= p.speed;
+            if (p.y < 0) p.y = canvas.height;
+        });
+        requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Access Function
+    function checkAccess() {
+        const input = document.getElementById('passcode').value;
+        const log = document.getElementById('log');
+
+        if (input === "20064") {
+            log.style.color = "#00ff00";
+            log.innerText = "ACCESS GRANTED. SYNCING...";
+            speak("Assalamu Alaikum, JAAN. JARVIS is online and ready for you, Master Anwarullah");
+            
+            // Effect: Screen Flash
+            document.body.style.boxShadow = "inset 0 0 100px #00e5ff";
+            setTimeout(() => { document.body.style.boxShadow = "none"; }, 500);
+
+        } else {
+            log.style.color = "#ff0000";
+            log.innerText = "ACCESS DENIED. UNAUTHORIZED USER.";
+            speak("Unauthorized entry. Access denied.");
+        }
+    }
+
+    function speak(text) {
+        const synth = window.speechSynthesis;
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.pitch = 0.8; // Deep voice like Jarvis
+        utter.rate = 1.0;
+        synth.speak(utter);
+    }
+</script>
+
+</body>
+</html>
