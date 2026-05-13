@@ -475,3 +475,123 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BN NAEEM | Dimension Gate</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #000; height: 100vh; overflow: hidden; display: flex; justify-content: center; align-items: center; font-family: 'Inter', sans-serif; }
+
+        /* Animated World-Class Background (Nebula Cloud) */
+        #nebula {
+            position: absolute;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #101820 0%, #000 100%);
+            z-index: -1;
+        }
+
+        .portal-core {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: 1s ease-in-out;
+        }
+
+        /* Abstract Spinning Energy Rings */
+        .energy-ring {
+            position: absolute;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: pulse 4s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.2; }
+            100% { transform: scale(1.1); opacity: 0.5; border-color: #fff; }
+        }
+
+        /* Clean Glass UI */
+        .login-box {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(40px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            box-shadow: 0 0 100px rgba(255, 255, 255, 0.05);
+            z-index: 10;
+        }
+
+        h1 { color: #fff; font-weight: 200; letter-spacing: 15px; font-size: 1.2rem; margin-bottom: 30px; }
+
+        input {
+            background: transparent; border: none; border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff; text-align: center; font-size: 1.5rem; width: 100%; outline: none;
+            margin-bottom: 30px; transition: 0.5s;
+        }
+
+        input:focus { border-bottom: 1px solid #fff; letter-spacing: 8px; }
+
+        .btn-gate {
+            background: transparent; color: #fff; border: 1px solid #fff;
+            padding: 12px 40px; border-radius: 50px; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem;
+            transition: 0.4s;
+        }
+
+        .btn-gate:hover { background: #fff; color: #000; box-shadow: 0 0 30px #fff; }
+
+    </style>
+</head>
+<body>
+
+<div id="nebula"></div>
+
+<!-- Decorative Rings -->
+<div class="energy-ring" style="width: 500px; height: 500px;"></div>
+<div class="energy-ring" style="width: 600px; height: 600px; animation-delay: 1s;"></div>
+
+<div class="portal-core">
+    <div class="login-box">
+        <h1>BN NAEEM CORE</h1>
+        <input type="password" id="passkey" placeholder="CODE">
+        <button class="btn-gate" onclick="unlock()">ENGAGE</button>
+        <p id="msg" style="color: rgba(255,255,255,0.3); font-size: 0.6rem; margin-top: 20px;">WAITING FOR BIOMETRIC SYNC</p>
+    </div>
+</div>
+
+<script>
+    function unlock() {
+        const key = document.getElementById('passkey').value;
+        const msg = document.getElementById('msg');
+
+        if (key === "20064") {
+            msg.innerText = "ACCESS GRANTED. DIMENSIONAL SYNC ACTIVE.";
+            msg.style.color = "#fff";
+            
+            // New "World Class" Voice Logic
+            const speech = new SpeechSynthesisUtterance("Assalamu Alaikum, JAAN. Welcome back, Master Anwarullah. System BN NAEEM is now under your command.");
+            speech.pitch = 1.2; // Slightly higher, more refined voice
+            speech.rate = 0.9;
+            window.speechSynthesis.speak(speech);
+
+            // Interface shift effect
+            document.querySelector('.portal-core').style.transform = "scale(1.5)";
+            document.querySelector('.portal-core').style.opacity = "0";
+        } else {
+            msg.innerText = "INVALID KEY. ACCESS DENIED.";
+            msg.style.color = "red";
+            window.speechSynthesis.speak(new SpeechSynthesisUtterance("Access Denied."));
+        }
+    }
+</script>
+
+</body>
+</html>
