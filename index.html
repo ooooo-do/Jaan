@@ -292,3 +292,186 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gateway to New World</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: #000;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* World Class Background: Animated Nebulae & Stars */
+        #nebula-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #1a0033 0%, #000 70%);
+            z-index: -2;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle var(--duration) infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Clean & Eye-Catching Interface */
+        .portal-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px;
+            border-radius: 40px;
+            text-align: center;
+            box-shadow: 0 0 100px rgba(138, 43, 226, 0.2);
+            transition: 0.5s;
+        }
+
+        h1 {
+            color: #fff;
+            font-weight: 200;
+            letter-spacing: 12px;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 10px;
+            width: 300px;
+            text-align: center;
+            font-size: 1.2rem;
+            letter-spacing: 5px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-bottom: 1px solid #fff;
+            box-shadow: 0 15px 20px -15px rgba(255,255,255,0.3);
+        }
+
+        .portal-btn {
+            background: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 15px 50px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .portal-btn:hover {
+            background: #fff;
+            color: #000;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(255,255,255,0.4);
+        }
+
+        /* Orbital Ring Animation */
+        .ring {
+            position: absolute;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 50%;
+            animation: rotate linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nebula-bg"></div>
+    
+    <!-- Decorative Rings for "Nayi Dunya" Feel -->
+    <div class="ring" style="width: 600px; height: 600px; animation-duration: 20s;"></div>
+    <div class="ring" style="width: 800px; height: 800px; animation-duration: 35s; opacity: 0.5;"></div>
+
+    <div class="portal-card">
+        <h1>DIMENSION-01</h1>
+        <div class="input-group">
+            <input type="password" id="passkey" placeholder="•••••">
+        </div>
+        <button class="portal-btn" onclick="openPortal()">INITIALIZE SYNC</button>
+        <p id="status" style="color: rgba(255,255,255,0.4); font-size: 0.7rem; margin-top: 20px; letter-spacing: 2px;">AUTHENTICATION REQUIRED</p>
+    </div>
+
+    <script>
+        // Star Background Creation
+        const bg = document.getElementById('nebula-bg');
+        for (let i = 0; i < 200; i++) {
+            let star = document.createElement('div');
+            star.className = 'star';
+            let size = Math.random() * 2 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
+            bg.appendChild(star);
+        }
+
+        function openPortal() {
+            const key = document.getElementById('passkey').value;
+            const status = document.getElementById('status');
+            
+            if (key === "20064") {
+                status.innerText = "DIMENSIONAL SYNC COMPLETE";
+                status.style.color = "#fff";
+                // Premium Neural Voice Logic
+                speak("Assalamu Alaikum, JAAN. Welcome to the new world. Master Anwarullah, all systems are operational.");
+            } else {
+                status.innerText = "SYNC FAILED: INVALID KEY";
+                status.style.color = "#ff4d4d";
+                speak("Access Denied.");
+            }
+        }
+
+        function speak(text) {
+            const synth = window.speechSynthesis;
+            const utter = new SpeechSynthesisUtterance(text);
+            
+            // Voice selection for more 'World Class' feel
+            const voices = synth.getVoices();
+            // Humein aisi voice chahiye jo mechanical na lage
+            utter.voice = voices.find(v => v.lang.includes('en-GB')) || voices[0];
+            utter.pitch = 1.1; 
+            utter.rate = 0.9; 
+            synth.speak(utter);
+        }
+    </script>
+</body>
+</html>
