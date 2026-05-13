@@ -1,1 +1,93 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JAAN OS - Active</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            color: #00fbff;
+            font-family: 'Orbitron', sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: radial-gradient(circle, #001e1e 0%, #000 100%);
+        }
+
+        /* Scanline effect */
+        body::before {
+            content: " ";
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .panel {
+            border: 2px solid #00fbff;
+            background: rgba(0, 20, 30, 0.9);
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 0 20px #00fbff;
+            animation: fadeIn 2s ease-in;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .core-ring {
+            width: 120px;
+            height: 120px;
+            border: 5px solid #00fbff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            margin: 0 auto 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        button {
+            background: #00fbff;
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            font-family: 'Orbitron';
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover { box-shadow: 0 0 30px #00fbff; }
+    </style>
+</head>
+<body>
+
+    <div class="panel">
+        <div class="core-ring"></div>
+        <h1>JAAN v1.0</h1>
+        <p id="status">WAITING FOR BIOMETRIC AUTHENTICATION</p>
+        <button onclick="activate()">LOG IN</button>
+    </div>
+
+    <script>
+        function activate() {
+            let status = document.getElementById('status');
+            status.innerText = "ACCESS GRANTED. HELLO MASTER ANWARULLAH.";
+            status.style.color = "#fff";
+            
+            let speech = new SpeechSynthesisUtterance();
+            speech.text = "Voice identification complete. System Jaan is online. Welcome back, Master Anwarullah.";
+            speech.pitch = 0.8;
+            speech.rate = 1;
+            window.speechSynthesis.speak(speech);
+        }
+    </script>
+</body>
+</html>
